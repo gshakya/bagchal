@@ -1,42 +1,8 @@
-.BorderCorner_wrap{
-	text-align:center;	
-}
-.BorderCorner {
-    border: 2px solid #ca1c1e;
-    display: inline-block;
-    margin: 25px auto;
-    padding: 25px;
-    position: relative;
-    width: auto;
-}
-.BorderCorner img {
-  position: relative;
-  display: block;
-  margin: 0;
-  padding: 0;
-  z-index: 5;
-}
-.BorderCorner::before,
-.BorderCorner::after {
-  content: '';
-  position: absolute;
-  background: #fff78e;
-}
-
-.BorderCorner::before {
-  width: calc(100% + 50px + 4px - 120px);
-  height: calc(100% + 4px);
-  top: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-}
-
-.BorderCorner::after {
-  height: calc(100% + 50px + 4px - 120px);
-  width: calc(100% + 4px);
-  left: -2px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
+.Square {
+  float: left;
+  width: 64px;
+  height: 64px;
+  margin: 10px;
+  padding: 10px;
+  /* border: 1px solid black */
 }

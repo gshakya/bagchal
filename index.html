@@ -2,68 +2,9 @@
 <html>
 
 <head>
-    <style>
-        .Square {
-            float: left;
-            width: 64px;
-            height: 64px;
-            margin: 10px;
-            padding: 10px;
-            /* border: 1px solid black */
-        }
-    </style>
     <link rel="stylesheet" href="scripts/style.css">
 
-    <script>
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
-
-        function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-            var selectedDiv = ev.currentTarget.parentNode;
-            console.log(selectedDiv.id + " square selected")
-            enableTravelableSquareOf(selectedDiv.id)
-        }
-
-        function enableTravelableSquareOf(squareId) {
-            activateDroppablesquare(squareId)
-            activateDroppablesquare(+squareId + +1)
-            activateDroppablesquare(+squareId + +10)
-            activateDroppablesquare(squareId - 1)
-            activateDroppablesquare(squareId - 10)
-            var omniDirectionPostitons = ["11", "13", "15", "22", "24", "31", "33", "35", "42", "44", "51", "53", "55"]
-            if (omniDirectionPostitons.includes(squareId)) {
-                activateDroppablesquare(+squareId + +11)
-                activateDroppablesquare(squareId - 11)
-                activateDroppablesquare(+squareId + +9)
-                activateDroppablesquare(squareId - 9)
-            }
-        }
-
-        function activateDroppablesquare(squareId) {
-            var square = document.getElementById(squareId)
-            if (square) {
-                square.setAttribute("ondrop", "drop(event)")
-                square.setAttribute("ondragover", "allowDrop(event)")
-            }
-        }
-
-        function deactivateAllDroppable() {
-            var allSquares = document.getElementsByClassName("Square")
-            for (var i = 0; i < allSquares.length; i++) {
-                allSquares[i].removeAttribute("ondrop")
-                allSquares[i].removeAttribute("ondragover")
-            }
-        }
-
-        function drop(ev) {
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
-            deactivateAllDroppable()
-        }
-    </script>
+    <script type="text/javascript" src="scripts/slide.js"></script>
 </head>
 
 <body>

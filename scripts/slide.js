@@ -1,70 +1,48 @@
-$(".slide").each(function(i) {
-    var item = $(this);
-    var item_clone = item.clone();
-    item.data("clone", item_clone);
-    var position = item.position();
-    item_clone
-    .css({
-      left: position.left,
-      top: position.top,
-      visibility: "hidden"
-    })
-      .attr("data-pos", i+1);
-    
-    $("#cloned-slides").append(item_clone);
-  });
-  
-  $(".all-slides").sortable({
-    
-    axis: "y",
-    revert: true,
-    scroll: false,
-    placeholder: "sortable-placeholder",
-    cursor: "move",
-  
-    start: function(e, ui) {
-      ui.helper.addClass("exclude-me");
-      $(".all-slides .slide:not(.exclude-me)")
-        .css("visibility", "hidden");
-      ui.helper.data("clone").hide();
-      $(".cloned-slides .slide").css("visibility", "visible");
-    },
-  
-    stop: function(e, ui) {
-      $(".all-slides .slide.exclude-me").each(function() {
-        var item = $(this);
-        var clone = item.data("clone");
-        var position = item.position();
-  
-        clone.css("left", position.left);
-        clone.css("top", position.top);
-        clone.show();
-  
-        item.removeClass("exclude-me");
-      });
-      
-      $(".all-slides .slide").each(function() {
-        var item = $(this);
-        var clone = item.data("clone");
-        
-        clone.attr("data-pos", item.index());
-      });
-  
-      $(".all-slides .slide").css("visibility", "visible");
-      $(".cloned-slides .slide").css("visibility", "hidden");
-    },
-  
-    change: function(e, ui) {
-      $(".all-slides .slide:not(.exclude-me)").each(function() {
-        var item = $(this);
-        var clone = item.data("clone");
-        clone.stop(true, false);
-        var position = item.position();
-        clone.animate({
-          left: position.left,
-          top: position.top
-        }, 200);
-      });
-    }
-    
-  });
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+  var selectedDiv = ev.currentTarget.parentNode;
+  console.log(selectedDiv.id + " square selected")
+  enableTravelableSquareOf(selectedDiv.id)
+}
+
+function enableTravelableSquareOf(squareId) {
+  activateDroppablesquare(squareId)
+  activateDroppablesquare(+squareId + +1)
+  activateDroppablesquare(+squareId + +10)
+  activateDroppablesquare(squareId - 1)
+  activateDroppablesquare(squareId - 10)
+  var omniDirectionPostitons = ["11", "13", "15", "22", "24", "31", "33", "35", "42", "44", "51", "53", "55"]
+  if (omniDirectionPostitons.includes(squareId)) {
+      activateDroppablesquare(+squareId + +11)
+      activateDroppablesquare(squareId - 11)
+      activateDroppablesquare(+squareId + +9)
+      activateDroppablesquare(squareId - 9)
+  }
+}
+
+function activateDroppablesquare(squareId) {
+  var square = document.getElementById(squareId)
+  if (square) {
+      square.setAttribute("ondrop", "drop(event)")
+      square.setAttribute("ondragover", "allowDrop(event)")
+  }
+}
+
+function deactivateAllDroppable() {
+  var allSquares = document.getElementsByClassName("Square")
+  for (var i = 0; i < allSquares.length; i++) {
+      allSquares[i].removeAttribute("ondrop")
+      allSquares[i].removeAttribute("ondragover")
+  }
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+  deactivateAllDroppable()
+}
