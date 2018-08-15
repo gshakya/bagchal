@@ -28,8 +28,8 @@ function activateDroppablesquare(squareId) {
   var square = document.getElementById(squareId)
   console.log("checking: " +squareId +"="+square )
   if (square) {
-    console.log(squareId +" occupied : "+ isSquareOccupied(square))
-    if (!isSquareOccupied(square)) {
+    console.log(squareId +" occupied : "+ isOccupied(square))
+    if ( isOccupied(square)) {
 
       console.log(squareId + ': valid')
       square.setAttribute("ondrop", "drop(event)")
@@ -47,8 +47,8 @@ function deactivateAllDroppable() {
   }
 }
 
-function isSquareOccupied(square) {
-  return square.hasChildNodes()
+function isOccupied(square) {
+  return !square.innerHTML.trim()===""
 }
 
 function drop(ev) {
