@@ -26,10 +26,10 @@ function enableTravelableSquareOf(squareId) {
 function activateDroppablesquare(squareId) {
 
   var square = document.getElementById(squareId)
-  console.log("checking: " +squareId +"="+square )
+  console.log("checking: " + squareId + "=" + square)
   if (square) {
-    console.log(squareId +" occupied : "+ isOccupied(square))
-    if ( isOccupied(square)) {
+    console.log(squareId + " occupied : " + isOccupied(square))
+    if (isOccupied(square)) {
 
       console.log(squareId + ': valid')
       square.setAttribute("ondrop", "drop(event)")
@@ -48,7 +48,7 @@ function deactivateAllDroppable() {
 }
 
 function isOccupied(square) {
-  return !square.innerHTML.trim()===""
+  return !square.innerHTML.trim() === ""
 }
 
 function drop(ev) {

@@ -1,0 +1,4 @@
+enum BagchalPiece {
+    Goat,
+    Tiger
+}
